@@ -289,7 +289,7 @@ emits `("credit","rate_form")` with `true`.
 |---|---|
 | `set_protocol_fee_bps(bps)` (`lib.rs:744`) | Admin; `bps <= MAX_PROTOCOL_FEE_BPS = 1_000`. Returns `Overflow` if exceeded. |
 | `set_treasury(admin, treasury)` (`lib.rs:758`) | Double-auth (admin arg + `require_admin_auth`). |
-| `withdraw_treasury(admin)` (`lib.rs:770`) | Transfers `TreasuryBalance` from contract to `TreasuryAddress`; clears balance. Errors: `TreasuryNotSet`, `MissingLiquidityToken`. |
+| `propose_treasury_withdrawal(amount)` / `confirm_treasury_withdrawal()` | Queues a bounded treasury withdrawal, enforces a minimum 24-hour delay, then transfers to `TreasuryAddress`, reduces `TreasuryBalance`, clears the pending proposal, and emits `TreasuryWithdrawnEvent`. |
 
 ### 2.8 Settlement & oracle
 

@@ -213,6 +213,16 @@ pub enum ContractError {
     OraclePriceDeviation = 38,
 }
 
+/// Treasury withdrawal queued for delayed admin confirmation.
+#[contracttype]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct PendingTreasuryWithdrawal {
+    /// Amount to transfer to the configured treasury.
+    pub amount: i128,
+    /// Earliest ledger timestamp at which confirmation is allowed.
+    pub accept_after: u64,
+}
+
 /// Stored credit line data for a borrower.
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -356,6 +366,7 @@ pub struct RateFormulaConfigEvent {
 /// that case the relevant entrypoints panic with
 /// [`ContractError::MissingLiquidityToken`] or
 /// [`ContractError::MissingLiquiditySource`].
+#[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ProtocolConfig {
     /// Configured liquidity token.
@@ -369,6 +380,7 @@ pub struct ProtocolConfig {
 /// This is **not** a `#[contracttype]`; it is a Rust-side projection used by
 /// `get_protocol_summary` to return dashboard totals from existing aggregate
 /// storage without bumping persistent-entry TTL.
+#[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ProtocolSummary {
     /// Number of indexed credit lines.

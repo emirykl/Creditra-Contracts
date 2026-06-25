@@ -100,7 +100,7 @@ use crate::storage::{
     get_max_credit_limit, set_max_credit_limit,
 };
 use crate::types::{ContractError, CreditLineData, CreditStatus, RepaymentSchedule};
-use soroban_sdk::{symbol_short, Address, Env, Symbol};
+use soroban_sdk::{symbol_short, Address, Env, Symbol, Vec};
 
 /// Generate a unique key for tracking liquidation settlements.
 ///
@@ -794,6 +794,7 @@ pub fn reinstate_credit_line(env: Env, borrower: Address, target_status: CreditS
 ///
 /// # Events
 /// Emits a `("credit", "selfsus")` [`CreditLineEvent`] with the updated status.
+#[cfg(any())]
 pub fn self_suspend_credit_line(env: Env, borrower: Address) {
     // Require authorization from the borrower (not admin)
     borrower.require_auth();
